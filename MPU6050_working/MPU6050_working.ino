@@ -1,5 +1,14 @@
 /*-------------------------------------------------------------------------------------
-Credit to electronoobs and joop brokkking for I2C tutorials
+Credit to Joop Brokkking for I2C tutorials and parts of this code. Check put his videos on youtube.
+
+Summary:
+This is a simple program to display the angle from a MPU-6050 IMU. It uses both the Accelerometer
+and the Gyro to get an accurate reading. To start the program, upload it and open the serial monitor.
+The gyro should start calibrating. It will then start printing the roll and pitch angles. It is not
+exactly in degrees, so depending on your acc_weight, you will have to scale the output. This can be done
+by adjusting the "degreescale" variable. 
+
+Wiring:
 Gyro - Arduino UNO
 VCC  -  5V
 GND  -  GND
@@ -7,7 +16,7 @@ SDA  -  A4
 SCL  -  A5
 ----------------------------------------------------------------------------------------*/
 
-//Include LCD and I2C library
+//Include I2C library
 #include <Wire.h>
 
 //Declaring Variables-------------------------------------------------------------------
@@ -24,6 +33,7 @@ float angle_roll_acc, angle_pitch_acc;//Accelerometer angles
 //Combined variables
 float angle_pitch_output, angle_roll_output;//Output angles
 const float acc_weight = 0.03;//Weight of accelerometer angles when calculating output angles
+const float degreescale = 2.8;
 //Loop settings
 long loop_timer;
 
@@ -101,8 +111,8 @@ void calculateAngles(){
   }
 
   //Apply scaling or filters here
-  angle_pitch_output = angle_pitch * 2.8;
-  angle_roll_output = angle_roll * 2.8;
+  angle_pitch_output = angle_pitch * degreescale;
+  angle_roll_output = angle_roll * degreescale;
   
 }
 
@@ -131,13 +141,12 @@ void write_Telem(){
 
 void calibrateGyro(){
   Serial.print("  MPU-6050 IMU");
-  Serial.print("     MK4.0");
+  Serial.print("     FINAL");
   Serial.print("Calibrating gyro");
   for (int cal_int = 0; cal_int < 2000 ; cal_int ++){
-    //Run this code 2000 times
     if(cal_int % 125 == 0)Serial.print(".");
     read_mpu_6050_data();
-    //Add the gyro offsets to the variables for averaging
+    //Add the gyro offest to the variables for averaging
     gyro_x_cal += gyro_x;
     gyro_y_cal += gyro_y;
     gyro_z_cal += gyro_z;

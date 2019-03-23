@@ -33,7 +33,7 @@ float angle_roll_acc, angle_pitch_acc;//Accelerometer angles
 //Combined variables
 float angle_pitch_output, angle_roll_output;//Output angles
 const float acc_weight = 0.03;//Weight of accelerometer angles when calculating output angles
-const float degreescale = 2.8;
+const float degreescale = 3.76;
 //Loop settings
 long loop_timer;
 

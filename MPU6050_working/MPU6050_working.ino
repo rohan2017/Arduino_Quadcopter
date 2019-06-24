@@ -3,9 +3,9 @@ Credit to Joop Brokkking for I2C tutorials and parts of this code. Check put his
 
 Summary:
 This is a simple program to display the angle from a MPU-6050 IMU. It uses both the Accelerometer
-and the Gyro to get an accurate reading. To start the program, upload it and open the serial monitor.
-The gyro should start calibrating. It will then start printing the roll and pitch angles. It is not
-exactly in degrees, so depending on your acc_weight, you will have to scale the output. This can be done
+and the Gyro to get an accurate reading. To start the program, upload it and open the serial monitor/serial plotter.
+The gyro should start calibrating. It will then start printing the roll and pitch angles. It might not
+be exactly in degrees, so depending on your setup, you will have to scale the output. This can be done
 by adjusting the "degreescale" variable. 
 
 Wiring:
